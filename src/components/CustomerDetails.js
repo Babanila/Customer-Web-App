@@ -6,7 +6,7 @@ const tableRowDiv = css`
   display: table-row;
   background-color: #f6f6f6;
   &:hover {
-    background-color: #a2f2a2;
+    background-color: #ffe7e7;
   }
 `;
 
@@ -17,10 +17,10 @@ const tableCellDiv = css`
   border-bottom: 1px solid black;
 `;
 
-function CustomerDetails({ customerData }) {
+function CustomerDetails({ customerData, onClick }) {
   const { customerID, name, lastContact, customerLifetimeValue } = customerData;
   return (
-    <div className={cx(tableRowDiv)} id="tablerow">
+    <div className={cx(tableRowDiv)} onClick={() => onClick(customerID)}>
       <div className={cx(tableCellDiv)}>{customerID}</div>
       <div className={cx(tableCellDiv)}>{name.first}</div>
       <div className={cx(tableCellDiv)}>{name.last}</div>

@@ -10,7 +10,7 @@ const tableDiv = css`
 const tableTitleDiv = css`
   display: table-caption;
   text-align: center;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
 `;
 
@@ -29,6 +29,10 @@ const tableBodyDiv = css`
 `;
 
 function CustomerList({ allCustomerData }) {
+  const showCustomerDetails = (id) => {
+    // console.log(id);
+  };
+
   return (
     <div>
       <div className={cx(tableDiv)}>
@@ -40,7 +44,7 @@ function CustomerList({ allCustomerData }) {
         <div className={cx(tableHeaderDiv)}>Lifetime Value</div>
         <div className={cx(tableBodyDiv)}>
           {allCustomerData.map((item, i) => (
-            <CustomerDetails key={i} customerData={item} />
+            <CustomerDetails key={i} customerData={item} onClick={showCustomerDetails} />
           ))}
         </div>
       </div>
