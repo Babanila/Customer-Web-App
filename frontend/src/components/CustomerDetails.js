@@ -1,11 +1,12 @@
 import React from 'react'
+import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { cx, css } from 'emotion'
 import FormComponent from './FormComponent'
 import ErrorComponent from './ErrorComponent'
 import SingleButton from './SingleButton'
 import BackButton from './BackButton'
-import { isoDateConverter } from './Utils'
+import { baseUrl, isoDateConverter } from './Utils'
 
 const customerDetailsDivStyle = css`
   margin-top: 3em;
@@ -26,7 +27,7 @@ const customerDetailsDivTitle = css`
 
 const customerDetailsBtnGroup = css`
   margin-bottom: 20px;
-  width: 42%;
+  width: 65%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -52,18 +53,49 @@ const updateBtnStyle = css`
   }
 `
 
-function CustomerDetails({ allCustomerData, match }) {
-  const history = useHistory()
-  const selectedCustomer = allCustomerData.find(
-    (item) => item.customerID === parseInt(match.params.id)
-  )
+const deleteBtnStyle = css`
+  padding: 10px;
+  font-size: 1em;
+  outline: none;
+  border: 2px solid #ff0000;
+  border-radius: 5px;
+  color: #ff0000;
+  background-color: #ffffff;
+  &:hover {
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #ff0000;
+  }
+`
 
-  const [changeCustomerData, setChangeCustomerData] = React.useState(selectedCustomer)
+function CustomerDetails({ match }) {
+  const history = useHistory()
+  const [selectedCustomer, setSelectedCustomer] = React.useState([])
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState('')
+
+  const url = `${baseUrl}/customer/${parseInt(match.params.id)}`
+
+  React.useEffect(() => {
+    fetchCustomerRequest(url)
+  }, [])
+
+  const fetchCustomerRequest = async (inputUrl) => {
+    try {
+      const { data } = await axios(inputUrl)
+      setSelectedCustomer(data)
+      setLoading(false)
+    } catch (err) {
+      console.log('error', err)
+      setError(err)
+    }
+  }
+
   const handleDataChange = ({ target }) => {
     const { name, value } = target
     let modifiedValue
     name === 'lastContact' ? (modifiedValue = isoDateConverter(value)) : (modifiedValue = value)
-    setChangeCustomerData((state) => ({
+    setSelectedCustomer((state) => ({
       ...state,
       name: {
         ...state.name,
@@ -74,9 +106,32 @@ function CustomerDetails({ allCustomerData, match }) {
     }))
   }
 
-  const handleUpdate = (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault()
-    console.log('Update button clicked')
+    try {
+      const { data } = await axios(`${baseUrl}/edit_customer/${parseInt(match.params.id)}`)
+      console.log(data)
+      console.log('Update button clicked')
+      // history.push(`/`)
+    } catch (error) {}
+  }
+
+  const handleDelete = async (e) => {
+    e.preventDefault()
+
+    try {
+      const { data } = await axios(`${baseUrl}/delete_customer/${parseInt(match.params.id)}`)
+      console.log(data)
+      console.log('delete button clicked')
+      // history.push(`/`)
+    } catch (error) {}
+
+    // const newallCustomerData = allCustomerData.filter(
+    //   (item) => item.customerID !== parseInt(match.params.id)
+    // )
+    // console.log('Delete button clicked', newallCustomerData)
+    // alert(`Customer with ${match.params.id} deleted.`)
+    // history.push(`/`)
   }
 
   const handleBack = () => history.push(`/`)
@@ -85,18 +140,21 @@ function CustomerDetails({ allCustomerData, match }) {
     <div className={cx(customerDetailsDivStyle)}>
       <div className={cx(customerDetailsDivTitle)}>Customer Full Details</div>
       <FormComponent
-        formData={changeCustomerData}
+        formData={selectedCustomer}
         handleSubmit={handleUpdate}
         handleInputChange={handleDataChange}
       />
       <div className={cx(customerDetailsBtnGroup)}>
         <SingleButton btnName="Update" btnClick={handleUpdate} btnStyles={updateBtnStyle} />
+        <SingleButton btnName="Delete" btnClick={handleDelete} btnStyles={deleteBtnStyle} />
         <BackButton handleBack={handleBack} />
       </div>
     </div>
   )
 
-  return selectedCustomer ? selectedCustomerDetails : <ErrorComponent />
+  return error ? <ErrorComponent /> : loading ? <div>Looding ...</div> : selectedCustomerDetails
+
+  // return selectedCustomer ? selectedCustomerDetails : <ErrorComponent />
 }
 
 export default CustomerDetails
