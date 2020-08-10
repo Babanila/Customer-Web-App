@@ -24,10 +24,10 @@ function App() {
           render={(props) => <CustomerList {...props} allCustomerData={dummyData} />}
         />
         <Route
-          path="/customer/:id"
+          path="/customers/:id"
           render={(props) => <CustomerDetails {...props} allCustomerData={dummyData} />}
         />
-        <Route path="/new-customer" render={(props) => <CustomerForm {...props} />} />
+        <Route path="/new_customer" render={(props) => <CustomerForm {...props} />} />
         <Route component={ErrorComponent} />
       </Switch>
     </div>

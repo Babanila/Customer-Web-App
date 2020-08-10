@@ -1,0 +1,24 @@
+{
+  "name": "backend-node-server",
+  "version": "1.0.0",
+  "description": "Single Page Application Server.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:watch": "nodemon server.js",
+    "build": "yarn install",
+    "debug": "node $NODE_DEBUG_OPTION ./sever.js",
+    "test": "jest"
+  },
+  "author": "Babajide Williams <babanila@yahoo.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "jest": "^26.2.2",
+    "nodemon": "^2.0.4"
+  }
+}
