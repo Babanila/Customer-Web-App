@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import FormComponent from './FormComponent'
 import SingleButton from './SingleButton'
 import BackButton from './BackButton'
-import { isoDateConverter } from './Utils'
+import { initialState, baseUrl, dataPoster } from './Utils'
 
 const customerFormDivStyle = css`
   margin-top: 3em;
@@ -68,40 +68,32 @@ const resetBtnStyle = css`
   }
 `
 
-const initialState = {
-  customerID: '',
-  name: {
-    first: '',
-    last: ''
-  },
-  birthday: '',
-  gender: '',
-  lastContact: '',
-  customerLifetimeValue: 0
-}
-
 function CustomerForm() {
   const history = useHistory()
   const [formState, setFormState] = React.useState(initialState)
 
   const handleInputChange = ({ target }) => {
     const { name, value } = target
-    let inputValue
-    name === 'lastContact' ? (inputValue = isoDateConverter(value)) : (inputValue = value)
     setFormState((state) => ({
       ...state,
       name: {
         ...state.name,
-        first: name === 'first' ? inputValue : state.name.first,
-        last: name === 'last' ? inputValue : state.name.last
+        first: name === 'first' ? value : state.name.first,
+        last: name === 'last' ? value : state.name.last
       },
-      [name]: inputValue
+      [name]: value
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Submit button clicked')
+    try {
+      const { data } = await dataPoster(`${baseUrl}/new_customer`, 'post', formState)
+      alert(data)
+    } catch (error) {
+      console.log(error)
+      error.message.includes(404) ? alert('Error during creation !!!') : alert(error.message)
+    }
   }
 
   const handleReset = (e) => {

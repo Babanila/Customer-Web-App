@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const createController = require('./src/controller')
-const { getCustomerIndex, singleCustomer } = require('./src/serverUtils')
+const { getCustomerIndex, singleCustomer, isoDateConverter } = require('./src/serverUtils')
 const defaultData = require('./customer-sample.json')
 
 const app = express()
@@ -19,7 +19,7 @@ const {
   createCustomer,
   updateCustomer,
   deleteCustomer
-} = createController(customerDatabase, getCustomerIndex, singleCustomer)
+} = createController(customerDatabase, getCustomerIndex, singleCustomer, isoDateConverter)
 
 // Get All Customers
 app.get('/', getCustomers)

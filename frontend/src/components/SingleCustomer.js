@@ -1,5 +1,6 @@
 import React from 'react'
 import { cx, css } from 'emotion'
+import { utcDateConverter } from './Utils'
 
 const tableRowDiv = css`
   display: table-row;
@@ -23,7 +24,7 @@ function SingleCustomer({ customerData, onClick }) {
       <div className={cx(tableCellDiv)}>{customerID}</div>
       <div className={cx(tableCellDiv)}>{name.first}</div>
       <div className={cx(tableCellDiv)}>{name.last}</div>
-      <div className={cx(tableCellDiv)}>{new Date(lastContact).toUTCString()}</div>
+      <div className={cx(tableCellDiv)}>{utcDateConverter(lastContact)}</div>
       <div className={cx(tableCellDiv)}>{customerLifetimeValue}</div>
     </div>
   )

@@ -3,6 +3,9 @@ import { useHistory } from 'react-router-dom'
 import { cx, css } from 'emotion'
 import SingleCustomer from './SingleCustomer'
 import SingleButton from './SingleButton'
+import ErrorComponent from './ErrorComponent'
+import LoadingComponent from './LoadingComponent'
+import { fetcher, baseUrl } from './Utils'
 
 const tableDiv = css`
   margin-top: 2em;
@@ -56,11 +59,21 @@ const addCustomerBtnStyle = css`
     border: 2px solid #f54b3a;
   }
 `
+function CustomerList() {
+  const [allCustomerData, setAllCustomerData] = React.useState([])
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState('')
 
-function CustomerList({ allCustomerData, match }) {
+  React.useEffect(() => {
+    fetcher(baseUrl, setAllCustomerData, setError, setLoading)
+  }, [baseUrl])
+
   const history = useHistory()
   const showCustomerDetails = (id) => history.push(`/customer/${id}`)
-  const handleNewCustomer = () => history.push(`/new-customer`)
+  const handleNewCustomer = () => history.push(`/new_customer`)
+
+  if (error) return <ErrorComponent />
+  if (loading) return <LoadingComponent />
 
   return (
     <div>

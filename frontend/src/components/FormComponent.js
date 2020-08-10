@@ -41,7 +41,7 @@ function FormComponent({ formData, handleSubmit, handleInputChange }) {
           CustomerId:
           <input
             style={inputStyle}
-            name="customerId"
+            name="customerID"
             type="text"
             placeholder="CustomerId"
             value={formData.customerID}
@@ -84,6 +84,7 @@ function FormComponent({ formData, handleSubmit, handleInputChange }) {
           value={formData.gender}
           onChange={handleInputChange}
         >
+          <option value=""> Choose one</option>
           <option value="m">Male</option>
           <option value="w">Female</option>
           <option value="o">Other</option>
@@ -110,14 +111,14 @@ function FormComponent({ formData, handleSubmit, handleInputChange }) {
           <input
             style={inputStyle}
             name="lastContact"
-            type={formData.lastContact.includes('Z') ? 'datetime' : 'datetime-local'}
             placeholder="Last Contact"
-            value={
-              formData.lastContact.includes('Z')
-                ? utcDateConverter(formData.lastContact)
-                : formData.lastContact
-            }
             onChange={handleInputChange}
+            type={formData.lastContact === '' ? 'datetime-local' : 'datetime'}
+            value={
+              formData.lastContact === ''
+                ? formData.lastContact
+                : utcDateConverter(formData.lastContact)
+            }
           />
         </div>
       </div>

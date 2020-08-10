@@ -4,9 +4,10 @@ import { useHistory } from 'react-router-dom'
 import { cx, css } from 'emotion'
 import FormComponent from './FormComponent'
 import ErrorComponent from './ErrorComponent'
+import LoadingComponent from './LoadingComponent'
 import SingleButton from './SingleButton'
 import BackButton from './BackButton'
-import { baseUrl, isoDateConverter } from './Utils'
+import { fetcher, baseUrl } from './Utils'
 
 const customerDetailsDivStyle = css`
   margin-top: 3em;
@@ -74,69 +75,58 @@ function CustomerDetails({ match }) {
   const [loading, setLoading] = React.useState(true)
   const [error, setError] = React.useState('')
 
-  const url = `${baseUrl}/customer/${parseInt(match.params.id)}`
+  const id = parseInt(match.params.id)
+  const url = `${baseUrl}/customer/${id}`
+  const updateUrl = `${baseUrl}/edit_customer/${id}`
+  const deleteUrl = `${baseUrl}/delete_customer/${id}`
 
   React.useEffect(() => {
-    fetchCustomerRequest(url)
-  }, [])
-
-  const fetchCustomerRequest = async (inputUrl) => {
-    try {
-      const { data } = await axios(inputUrl)
-      setSelectedCustomer(data)
-      setLoading(false)
-    } catch (err) {
-      console.log('error', err)
-      setError(err)
-    }
-  }
+    fetcher(url, setSelectedCustomer, setError, setLoading)
+  }, [id, url, updateUrl, deleteUrl])
 
   const handleDataChange = ({ target }) => {
     const { name, value } = target
-    let modifiedValue
-    name === 'lastContact' ? (modifiedValue = isoDateConverter(value)) : (modifiedValue = value)
     setSelectedCustomer((state) => ({
       ...state,
       name: {
         ...state.name,
-        first: name === 'first' ? modifiedValue : state.name.first,
-        last: name === 'last' ? modifiedValue : state.name.last
+        first: name === 'first' ? value : state.name.first,
+        last: name === 'last' ? value : state.name.last
       },
-      [name]: modifiedValue
+      [name]: value
     }))
   }
 
   const handleUpdate = async (e) => {
     e.preventDefault()
     try {
-      const { data } = await axios(`${baseUrl}/edit_customer/${parseInt(match.params.id)}`)
-      console.log(data)
-      console.log('Update button clicked')
-      // history.push(`/`)
-    } catch (error) {}
+      const { data } = await axios.put(updateUrl, selectedCustomer)
+      alert(data)
+      history.push(`/customer/${id}`)
+    } catch (error) {
+      error.message.includes('Request failed with status code 500')
+        ? alert('CustomerID can not be changed')
+        : alert(error.message)
+    }
   }
 
   const handleDelete = async (e) => {
     e.preventDefault()
-
     try {
-      const { data } = await axios(`${baseUrl}/delete_customer/${parseInt(match.params.id)}`)
-      console.log(data)
-      console.log('delete button clicked')
-      // history.push(`/`)
-    } catch (error) {}
-
-    // const newallCustomerData = allCustomerData.filter(
-    //   (item) => item.customerID !== parseInt(match.params.id)
-    // )
-    // console.log('Delete button clicked', newallCustomerData)
-    // alert(`Customer with ${match.params.id} deleted.`)
-    // history.push(`/`)
+      const { data } = await axios.delete(deleteUrl)
+      alert(data)
+      history.push('/')
+    } catch (error) {
+      setError(error)
+    }
   }
 
   const handleBack = () => history.push(`/`)
 
-  const selectedCustomerDetails = (
+  if (error) return <ErrorComponent />
+  if (loading) return <LoadingComponent />
+
+  return (
     <div className={cx(customerDetailsDivStyle)}>
       <div className={cx(customerDetailsDivTitle)}>Customer Full Details</div>
       <FormComponent
@@ -151,10 +141,6 @@ function CustomerDetails({ match }) {
       </div>
     </div>
   )
-
-  return error ? <ErrorComponent /> : loading ? <div>Looding ...</div> : selectedCustomerDetails
-
-  // return selectedCustomer ? selectedCustomerDetails : <ErrorComponent />
 }
 
 export default CustomerDetails

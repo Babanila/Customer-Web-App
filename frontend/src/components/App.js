@@ -6,7 +6,6 @@ import CustomerList from './CustomerList'
 import CustomerDetails from './CustomerDetails'
 import CustomerForm from './CustomerForm'
 import ErrorComponent from './ErrorComponent'
-import dummyData from '../../customer-sample.json'
 
 const rootDiv = css`
   display: flex;
@@ -18,15 +17,8 @@ function App() {
     <div className={cx(rootDiv)}>
       <PageHeader />
       <Switch>
-        <Route
-          exact
-          path="/"
-          render={(props) => <CustomerList {...props} allCustomerData={dummyData} />}
-        />
-        <Route
-          path="/customers/:id"
-          render={(props) => <CustomerDetails {...props} allCustomerData={dummyData} />}
-        />
+        <Route exact path="/" render={(props) => <CustomerList {...props} />} />
+        <Route path="/customer/:id" render={(props) => <CustomerDetails {...props} />} />
         <Route path="/new_customer" render={(props) => <CustomerForm {...props} />} />
         <Route component={ErrorComponent} />
       </Switch>
