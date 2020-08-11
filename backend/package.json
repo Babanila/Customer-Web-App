@@ -8,7 +8,8 @@
     "start:watch": "nodemon server.js",
     "build": "yarn install",
     "debug": "node $NODE_DEBUG_OPTION ./sever.js",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "author": "Babajide Williams <babanila@yahoo.com>",
   "license": "ISC",

@@ -1,30 +1,56 @@
-TASK: Create a Single Page Application with the following requirements.
+# customer-web-app
 
-General requirements:
+# Table of Contents
 
-- Implement in JavaScript using a framework of choice (we like Angular a lot)
-- Write JavaScript tests using Jasmine, Mocha, …
-- The app should run in evergreen browsers
-- Provide documentation
-- Use RWD (feel free to use bootstrap, foundation, ...)
-- Use Git while creating this project and if possible Github
-- Use a familiar build process
-- Feel free to use Typescript or ES6
+- [Features](#features)
+- [Requirements](#requirements)
+- [Usage](#usage)
 
-Specification:
-Overview page:
-• Lists all customers
-• Add a new customer
-• Link to edit a customer (‘Customer Detail’ page)
-• Delete a customer
+## Features
 
-Customer Detail page:
-• Edit & remove profile data
-Store the data locally (data: https://github.com/webtrekk/js-challenge-data)
+- View All Customers
+- View Individual Customer Data
+- Create New Customer
+- Edit Customer Data
+- Delete Customer
 
-Bonus:
+## Requirements
 
-- Setup a node server
-- Use persistent data storage (MongoDB, ...)
-- Host the application (Heroku, …)
-- Continuous Integration & Development (we like Jenkins & Travis)
+Make sure you have installed all of the following prerequisites on your development machine:
+
+- Git - [Download & Install Git](https://git-scm.com/downloads). MacOS and Linux machines typically have this already installed.
+
+- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager. Make sure to get the latest active LTS version.
+
+- Download the Customer-Web-App from this [link](https://github.com/Babanila/Customer-Web-App) or use `git clone git@github.com:Babanila/Customer-Web-App.git`.
+
+## How to start the frontend app
+
+`Note: Start the backend server before starting the frontend app (https://github.com/Babanila/Customer-Web-App/backend-node-server)`
+
+- Go to your terminal.
+- Locate the downloaded Customer-Web-App directory.
+- Change the directory to the Customer-Web-App directory(e.g `cd Customer-Web-App`).
+- Change the directory to the frontend directory(e.g `cd frontend`).
+- Run `yarn install`.
+- To start the app, run `yarn start` on your terminal.
+
+### Usage
+
+To run each endpoint, you need
+
+- A web browser
+- A running server ( e.g start server with `yarn start`, please look the details at `https://github.com/Babanila/Customer-Web-App/backend-node-server`).
+
+To use the app , follow the steps below.
+
+STEPS
+
+- Enter the localhost address using port 8080 (`e.g http://localhost:8080`).
+- Look at all the customers in the database.
+- Click on any customer to see the details.
+- E.t.c
+
+### To run unit tests
+
+- From the root directory, run `yarn test`
