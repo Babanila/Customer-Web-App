@@ -13,27 +13,30 @@ module.exports = function createController(
   }
 
   const getSingleCustomer = async (req, res) => {
+    if (parseInt(req.params.id) <= 0 || req.params.id === '') {
+      res.status(400).send('Invalid customerID')
+    }
+
     try {
-      const results = handleGetItem(dataStorage, req.params.id)
+      const results = await handleGetItem(dataStorage, req.params.id)
       return results
         ? res.status(200).send(results)
         : res.status(200).send(`Customer with customerID ${req.params.id} does not exist !!!`)
     } catch (e) {
-      return res.status(404).send('HTTP Error')
+      return res.status(500).send('HTTP Error')
     }
   }
 
   const createCustomer = async (req, res) => {
     try {
       const { customerID, name, birthday, gender, lastContact, customerLifetimeValue } = req.body
-
       if (parseInt(customerID) <= 0 || customerID === '') {
-        return res.status(200).send(`Please provide a number greater than 0 for the customerID`)
+        return res.status(400).send(`Please provide a number greater than 0 for the customerID.`)
       }
 
-      const duplicateCustomer = handleGetItem(dataStorage, customerID)
+      const duplicateCustomer = await handleGetItem(dataStorage, customerID)
       if (duplicateCustomer) {
-        return res.status(200).send(`Customer with ID: ${customerID} already exist !!!`)
+        return res.status(404).send(`Customer with ID: ${customerID} already exist !!!`)
       }
 
       const newCustomer = {
@@ -46,7 +49,7 @@ module.exports = function createController(
       }
 
       dataStorage.push({ ...newCustomer })
-      return res.status(200).send('Customer data created')
+      return res.status(200).send('Customer data created.')
     } catch (e) {
       return res.status(500).send('Internal Server Error')
     }
@@ -54,14 +57,14 @@ module.exports = function createController(
 
   const updateCustomer = async (req, res) => {
     try {
-      const index = handleGetIndex(dataStorage, req.params.id)
+      const index = await handleGetIndex(dataStorage, req.params.id)
       if (index === -1) {
-        return res.status(200).send("Customer doesn't exist ")
+        return res.status(400).send("Customer doesn't exist.")
       }
 
       const { customerID, name, lastContact } = req.body
       if (dataStorage[index].customerID !== parseInt(customerID)) {
-        return res.status(500).send('CustomerID can not be changed')
+        return res.status(501).send('CustomerID can not be changed.')
       }
 
       const modifiedData = {
@@ -75,7 +78,7 @@ module.exports = function createController(
       }
 
       dataStorage[index] = modifiedData
-      return res.status(200).send('Customer data updated sucessfully')
+      return res.status(200).send('Customer data updated sucessfully.')
     } catch (e) {
       return res.status(500).send('Internal Server Error')
     }
@@ -84,14 +87,15 @@ module.exports = function createController(
   const deleteCustomer = async (req, res) => {
     try {
       const index = handleGetIndex(dataStorage, req.params.id)
-      if (index !== -1) {
-        dataStorage.splice(index, 1)
-        return res.status(200).send(`Customer with customerID:${req.params.id} sucessfully deleted`)
-      } else {
-        return res.status(200).send("Customer doesn't exist ")
+
+      if (index === -1) {
+        return res.status(400).send(`Customer with customerID: ${req.params.id} doesn't exist.`)
       }
+
+      dataStorage.splice(index, 1)
+      return res.status(200).send(`Customer with customerID: ${req.params.id} sucessfully deleted`)
     } catch (e) {
-      return res.status(500).send('Delete Error !!!')
+      return res.status(500).send('HTTP Error !!!')
     }
   }
 
