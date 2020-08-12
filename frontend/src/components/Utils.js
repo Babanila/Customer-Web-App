@@ -25,7 +25,8 @@ export const fetcher = async (url, handleSetData, handleSetError, handleSetLoadi
     handleSetData(data)
     handleSetLoading(false)
   } catch (err) {
-    handleSetError(err)
+    handleSetError(err.message)
+    handleSetLoading(false)
   }
 }
 

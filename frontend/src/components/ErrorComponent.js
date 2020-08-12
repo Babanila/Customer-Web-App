@@ -3,15 +3,20 @@ import { cx, css } from 'emotion'
 
 function ErrorComponent() {
   const errorStyle = css`
-    width: 50%;
-    margin-top: 30%;
+    width: 100%;
+    height: 10em;
     display: flex;
     justify-content: center;
-    align-self: center;
-    color: #ff0000;
+    align-items: center;
+    color: #f54b3a;
+    margin-top: 10em;
   `
 
-  return <div className={cx(errorStyle)}>Page not found!!!</div>
+  return (
+    <div className={cx(errorStyle)}>
+      <h3>Page not found!!!</h3>
+    </div>
+  )
 }
 
 export default ErrorComponent

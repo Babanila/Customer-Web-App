@@ -7,6 +7,14 @@ import ErrorComponent from './ErrorComponent'
 import LoadingComponent from './LoadingComponent'
 import { fetcher, baseUrl } from './Utils'
 
+const customerListDiv = css`
+  margin-top: 6em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+`
+
 const tableDiv = css`
   margin-top: 2em;
   width: 100%;
@@ -22,6 +30,12 @@ const tableTitleDiv = css`
   padding-bottom: 10px;
 `
 
+const titleWithBtnDiv = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
 const tableHeaderDiv = css`
   display: table-cell;
   font-size: 20px;
@@ -30,23 +44,24 @@ const tableHeaderDiv = css`
   text-align: center;
   border-bottom: 1px solid black;
   background-color: #f6f6f6;
+  @media (max-width: 420px) {
+    font-size: 16px;
+  }
 `
 
 const tableBodyDiv = css`
   display: table-row-group;
 `
 
-const btnDiv = css`
-  margin-top: 1em;
-  width: 100%;
-  max-width: 800px;
-  display: flex;
-  justify-content: flex-end;
+const tableNullBody = css`
+  display: table-caption;
+  font-size: 20px;
+  color: #f54b3a;
 `
 
 const addCustomerBtnStyle = css`
-  padding: 10px;
-  font-size: 1em;
+  padding: 5px;
+  font-size: 0.7em;
   color: #ffffff;
   border: 2px solid #009900;
   background-color: #009900;
@@ -59,6 +74,7 @@ const addCustomerBtnStyle = css`
     border: 2px solid #f54b3a;
   }
 `
+
 function CustomerList() {
   const [allCustomerData, setAllCustomerData] = React.useState([])
   const [loading, setLoading] = React.useState(true)
@@ -76,26 +92,32 @@ function CustomerList() {
   if (loading) return <LoadingComponent />
 
   return (
-    <div>
+    <div className={cx(customerListDiv)}>
       <div className={cx(tableDiv)}>
-        <div className={cx(tableTitleDiv)}> Customer List </div>
+        <div className={cx(tableTitleDiv)}>
+          <div className={cx(titleWithBtnDiv)}>
+            <div>Customer List</div>
+            <SingleButton
+              btnName="Add Customer"
+              btnClick={handleNewCustomer}
+              btnStyles={addCustomerBtnStyle}
+            />
+          </div>
+        </div>
         <div className={cx(tableHeaderDiv)}>ID</div>
         <div className={cx(tableHeaderDiv)}>Firstname</div>
         <div className={cx(tableHeaderDiv)}>Lastname</div>
         <div className={cx(tableHeaderDiv)}>Last Contact</div>
         <div className={cx(tableHeaderDiv)}>Lifetime Value</div>
-        <div className={cx(tableBodyDiv)}>
-          {allCustomerData.map((item, i) => (
-            <SingleCustomer key={i} customerData={item} onClick={showCustomerDetails} />
-          ))}
-        </div>
-      </div>
-      <div className={cx(btnDiv)}>
-        <SingleButton
-          btnName="Add Customer"
-          btnClick={handleNewCustomer}
-          btnStyles={addCustomerBtnStyle}
-        />
+        {allCustomerData.length === 0 ? (
+          <div className={cx(tableNullBody)}> No Customer Data in the Database</div>
+        ) : (
+          <div className={cx(tableBodyDiv)}>
+            {allCustomerData.map((item, i) => (
+              <SingleCustomer key={i} customerData={item} onClick={showCustomerDetails} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )

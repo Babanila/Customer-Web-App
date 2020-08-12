@@ -7,7 +7,7 @@ import BackButton from './BackButton'
 import { initialState, baseUrl, dataPoster } from './Utils'
 
 const customerFormDivStyle = css`
-  margin-top: 3em;
+  margin-top: 7em;
   width: 400px;
   height: auto;
   display: flex;
@@ -15,6 +15,7 @@ const customerFormDivStyle = css`
   flex-direction: column;
   border: 1px solid #f54b3a;
   border-radius: 5px;
+  z-index: 10;
 `
 
 const customerFormDivTitle = css`

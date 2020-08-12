@@ -10,7 +10,7 @@ import BackButton from './BackButton'
 import { fetcher, baseUrl } from './Utils'
 
 const customerDetailsDivStyle = css`
-  margin-top: 3em;
+  margin-top: 8em;
   width: 400px;
   height: auto;
   display: flex;
