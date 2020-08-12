@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { cx, css } from 'emotion'
 import FormComponent from './FormComponent'
@@ -7,7 +6,7 @@ import ErrorComponent from './ErrorComponent'
 import LoadingComponent from './LoadingComponent'
 import SingleButton from './SingleButton'
 import BackButton from './BackButton'
-import { fetcher, baseUrl } from './Utils'
+import { fetcher, baseUrl, dataPoster } from './Utils'
 
 const customerDetailsDivStyle = css`
   margin-top: 8em;
@@ -99,26 +98,25 @@ function CustomerDetails({ match }) {
 
   const handleUpdate = async (e) => {
     e.preventDefault()
+
     try {
-      const { data } = await axios.put(updateUrl, selectedCustomer)
-      alert(data)
-      history.push(`/customer/${id}`)
-    } catch (error) {
-      error.message.includes('Request failed with status code 500')
-        ? alert('CustomerID can not be changed')
-        : alert(error.message)
-    }
+      if (isNaN(selectedCustomer.customerLifetimeValue)) {
+        alert('Life timeValue must be a number.')
+      } else {
+        const { data } = await dataPoster(updateUrl, 'put', selectedCustomer)
+        alert(data)
+        history.push(`/customer/${id}`)
+      }
+    } catch (_) {}
   }
 
   const handleDelete = async (e) => {
     e.preventDefault()
     try {
-      const { data } = await axios.delete(deleteUrl)
+      const { data } = await dataPoster(deleteUrl, 'delete', '')
       alert(data)
       history.push('/')
-    } catch (error) {
-      setError(error)
-    }
+    } catch (_) {}
   }
 
   const handleBack = () => history.push(`/`)

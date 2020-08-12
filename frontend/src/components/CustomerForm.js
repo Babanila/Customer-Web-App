@@ -91,10 +91,7 @@ function CustomerForm() {
     try {
       const { data } = await dataPoster(`${baseUrl}/new_customer`, 'post', formState)
       alert(data)
-    } catch (error) {
-      console.log(error)
-      error.message.includes(404) ? alert('Error during creation !!!') : alert(error.message)
-    }
+    } catch (_) {}
   }
 
   const handleReset = (e) => {

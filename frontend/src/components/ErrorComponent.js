@@ -1,7 +1,7 @@
 import React from 'react'
 import { cx, css } from 'emotion'
 
-function ErrorComponent() {
+function ErrorComponent({ message }) {
   const errorStyle = css`
     width: 100%;
     height: 10em;
@@ -14,7 +14,7 @@ function ErrorComponent() {
 
   return (
     <div className={cx(errorStyle)}>
-      <h3>Page not found!!!</h3>
+      <h3>{!message ? 'Page not found!!!' : message}</h3>
     </div>
   )
 }

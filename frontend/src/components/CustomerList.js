@@ -88,7 +88,7 @@ function CustomerList() {
   const showCustomerDetails = (id) => history.push(`/customer/${id}`)
   const handleNewCustomer = () => history.push(`/new_customer`)
 
-  if (error) return <ErrorComponent />
+  if (error === 'Network Error') return <ErrorComponent message="Please contact your provider." />
   if (loading) return <LoadingComponent />
 
   return (

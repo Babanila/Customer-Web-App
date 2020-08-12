@@ -21,12 +21,13 @@ export const utcDateConverter = (dateValue) => {
 
 export const fetcher = async (url, handleSetData, handleSetError, handleSetLoading) => {
   try {
-    const { data } = await axios(url)
-    handleSetData(data)
-    handleSetLoading(false)
+    const results = await axios(url)
+    return { handleSetData: handleSetData(results.data), handleSetLoading: handleSetLoading(false) }
   } catch (err) {
-    handleSetError(err.message)
-    handleSetLoading(false)
+    return {
+      handleSetError: handleSetError(err.message),
+      handleSetLoading: handleSetLoading(false)
+    }
   }
 }
 
@@ -41,6 +42,6 @@ export const dataPoster = async (url, methodType, postData) => {
     const returnData = await axios(option)
     return returnData
   } catch (err) {
-    return err
+    return err.response
   }
 }
