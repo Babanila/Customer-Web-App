@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Check SingleCustomer Component should renders without crashing 1`] = `
+<div
+  className="css-pe9o4c"
+  onClick={[Function]}
+>
+  <div
+    className="css-19d901a"
+  >
+    1
+  </div>
+  <div
+    className="css-19d901a"
+  >
+    Peter
+  </div>
+  <div
+    className="css-19d901a"
+  >
+    Smith
+  </div>
+  <div
+    className="css-19d901a"
+  >
+    Thu, 01 Jun 2017 23:28:56 GMT
+  </div>
+  <div
+    className="css-19d901a"
+  >
+    191.12
+  </div>
+</div>
+`;

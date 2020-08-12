@@ -1,0 +1,218 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Check CustomerForm Component should renders component without crashing 1`] = `
+<div
+  className="css-111lz80"
+>
+  <div
+    className="css-mqu2x4"
+  >
+    Customer Registration Form
+  </div>
+  <form
+    className="css-cgyezj"
+    onSubmit={[Function]}
+  >
+    <div
+      className="css-ku1ga7"
+    >
+      <label>
+        CustomerId:
+        <input
+          name="customerID"
+          onChange={[Function]}
+          placeholder="CustomerId"
+          style={
+            Object {
+              "border": "none",
+              "fontSize": "16px",
+              "marginLeft": "0.5em",
+              "outline": "none",
+            }
+          }
+          type="text"
+          value=""
+        />
+      </label>
+    </div>
+    <div
+      className="css-ku1ga7"
+    >
+      <label>
+        First Name:
+        <input
+          name="first"
+          onChange={[Function]}
+          placeholder="First Name"
+          style={
+            Object {
+              "border": "none",
+              "fontSize": "16px",
+              "marginLeft": "0.5em",
+              "outline": "none",
+            }
+          }
+          type="text"
+          value=""
+        />
+      </label>
+    </div>
+    <div
+      className="css-ku1ga7"
+    >
+      <label>
+        Last Name:
+        <input
+          name="last"
+          onChange={[Function]}
+          placeholder="Last Name"
+          style={
+            Object {
+              "border": "none",
+              "fontSize": "16px",
+              "marginLeft": "0.5em",
+              "outline": "none",
+            }
+          }
+          type="text"
+          value=""
+        />
+      </label>
+    </div>
+    <div
+      className="css-ku1ga7"
+    >
+      <label>
+        Gender:
+      </label>
+      <select
+        name="gender"
+        onChange={[Function]}
+        style={
+          Object {
+            "border": "none",
+            "fontSize": "16px",
+            "marginLeft": "0.5em",
+            "outline": "none",
+          }
+        }
+        value=""
+      >
+        <option
+          value=""
+        >
+           Choose one
+        </option>
+        <option
+          value="m"
+        >
+          Male
+        </option>
+        <option
+          value="w"
+        >
+          Female
+        </option>
+        <option
+          value="o"
+        >
+          Other
+        </option>
+      </select>
+    </div>
+    <div
+      className="css-ku1ga7"
+    >
+      <label>
+        Birthday:
+      </label>
+      <div>
+        <input
+          name="birthday"
+          onChange={[Function]}
+          placeholder="Birthday"
+          style={
+            Object {
+              "border": "none",
+              "fontSize": "16px",
+              "marginLeft": "0.5em",
+              "outline": "none",
+            }
+          }
+          type="date"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      className="css-ku1ga7"
+    >
+      <label>
+        Last Contact:
+      </label>
+      <div>
+        <input
+          name="lastContact"
+          onChange={[Function]}
+          placeholder="Last Contact"
+          style={
+            Object {
+              "border": "none",
+              "fontSize": "16px",
+              "marginLeft": "0.5em",
+              "outline": "none",
+            }
+          }
+          type="datetime-local"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      className="css-ku1ga7"
+    >
+      <label>
+        Lifetime Value:
+      </label>
+      <div>
+        <input
+          name="customerLifetimeValue"
+          onChange={[Function]}
+          style={
+            Object {
+              "border": "none",
+              "fontSize": "16px",
+              "marginLeft": "0.5em",
+              "outline": "none",
+            }
+          }
+          type="text"
+          value={0}
+        />
+      </div>
+    </div>
+  </form>
+  <div
+    className="css-kjw0s7"
+  >
+    <button
+      className="css-gt9xug"
+      onClick={[Function]}
+    >
+      Register
+    </button>
+    <button
+      className="css-97sg0e"
+      onClick={[Function]}
+    >
+      Reset
+    </button>
+    <button
+      className="css-14mojuj"
+      onClick={[Function]}
+    >
+      Back
+    </button>
+  </div>
+</div>
+`;

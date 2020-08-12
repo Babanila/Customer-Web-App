@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Check BackButton Component should renders without crashing 1`] = `
+<button
+  className="css-14mojuj"
+  onClick={[Function]}
+>
+  Back
+</button>
+`;

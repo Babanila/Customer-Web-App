@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Check PageHeader Component should renders without crashing 1`] = `
+<div
+  className="css-rx71yr"
+>
+  <h1>
+    Mapp
+  </h1>
+</div>
+`;

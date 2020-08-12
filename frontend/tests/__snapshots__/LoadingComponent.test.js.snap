@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Check LoadingComponent Component should renders without crashing 1`] = `
+<h3
+  className="css-d8gwku"
+>
+  Loading ...
+</h3>
+`;

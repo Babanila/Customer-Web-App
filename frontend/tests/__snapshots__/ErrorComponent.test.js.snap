@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Check ErrorComponent Component should renders without crashing 1`] = `
+<div
+  className="css-d8gwku"
+>
+  <h3>
+    Page not found!!!
+  </h3>
+</div>
+`;

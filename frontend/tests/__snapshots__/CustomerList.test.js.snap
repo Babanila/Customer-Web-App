@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Check CustomerList Component should renders component without crashing 1`] = `
+<h3
+  className="css-d8gwku"
+>
+  Loading ...
+</h3>
+`;
