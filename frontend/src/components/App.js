@@ -8,6 +8,8 @@ import CustomerForm from './CustomerForm'
 import ErrorComponent from './ErrorComponent'
 
 const rootDiv = css`
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
 `
