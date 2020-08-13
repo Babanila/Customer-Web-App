@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - 'stable'
+cache:
+  directories:
+    - '$HOME/.npm'
+matrix:
+  fast_finish: true
+  include:
+    - env:
+      before_script:
+        - cd ${TRAVIS_BUILD_DIR}/backend
+        - yarn install
+      script:
+        - yarn test
+        - yarn build
+    - env:
+      before_script:
+        - cd ${TRAVIS_BUILD_DIR}/frontend
+        - yarn install
+      script:
+        - yarn test
+        - yarn build

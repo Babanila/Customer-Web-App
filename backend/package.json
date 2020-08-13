@@ -7,7 +7,7 @@
     "start": "node server.js",
     "start:watch": "nodemon server.js",
     "build": "yarn install",
-    "debug": "node $NODE_DEBUG_OPTION ./sever.js",
+    "debug": "node $NODE_DEBUG_OPTION ./server.js",
     "test": "jest",
     "test:watch": "jest --watch"
   },
